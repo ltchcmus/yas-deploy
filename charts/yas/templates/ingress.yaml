@@ -1,0 +1,24 @@
+{{- range $name, $svc := .Values.services }}
+{{- if and $svc.enabled $svc.host }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $name }}-ingress
+  labels:
+    {{- include "yas.labels" $ | nindent 4 }}
+    app: {{ $name }}
+spec:
+  rules:
+    - host: {{ $svc.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $name }}
+                port:
+                  number: {{ $svc.containerPort }}
+{{- end }}
+{{- end }}

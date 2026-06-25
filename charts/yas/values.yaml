@@ -1,0 +1,226 @@
+# ============================================================
+# YAS Umbrella Chart - values.yaml
+# Team Cong | Domain: yas.lethanhcong.site
+# NodePort range: 30080 - 30110
+# ============================================================
+
+global:
+  registry: docker.io/coldcong
+  domain: yas.lethanhcong.site
+
+  # --- Infrastructure references ---
+  postgresql:
+    host: postgresql.postgres
+    port: "5432"
+    username: yasadminuser
+    password: pR6aHLoj6V9MebF7Zel36hUTo8MjLqKh7fPZHC5eJeEW3rkHNtpI6UUJpH7dzZAh
+
+  kafka:
+    bootstrapServers: kafka-cluster-kafka-brokers.kafka:9092
+
+  redis:
+    host: redis-master.redis
+    port: "6379"
+    password: redis
+
+  keycloak:
+    issuerUri: http://identity.yas.lethanhcong.site/realms/Yas
+    authUrl: http://identity.yas.lethanhcong.site/realms/Yas/protocol/openid-connect/auth
+    tokenUrl: http://identity.yas.lethanhcong.site/realms/Yas/protocol/openid-connect/token
+    backofficeBffClientSecret: update-me
+    storefrontBffClientSecret: update-me
+    customerManagementClientSecret: update-me
+
+  elasticsearch:
+    url: elasticsearch-es-http.elasticsearch
+    username: yas
+    password: LarUmB3A49NTg9YmgW4=
+
+# ============================================================
+# Services
+# type: backend | ui | swagger
+#   backend = Spring Boot (port 80, metric 8090, needs DB)
+#   ui      = Next.js (port 3000, needs API_BASE_PATH)
+#   swagger = Stock swagger-ui image
+# ============================================================
+
+services:
+  # --- Team Cong: backend services ---
+  cart:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30080
+    type: backend
+    databaseName: cart
+
+  order:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30081
+    type: backend
+    databaseName: order
+
+  payment:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30082
+    type: backend
+    databaseName: payment
+
+  payment-paypal:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30083
+    type: backend
+    databaseName: payment
+
+  customer:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30084
+    type: backend
+    databaseName: customer
+
+  search:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30085
+    type: backend
+    databaseName: search
+
+  recommendation:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30086
+    type: backend
+    databaseName: recommendation
+
+  webhook:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30087
+    type: backend
+    databaseName: webhook
+
+  sampledata:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30088
+    type: backend
+    databaseName: sampledata
+
+  # --- Swagger-UI (stock image, no CI build needed) ---
+  swagger-ui:
+    enabled: true
+    tag: v4.16.0
+    containerPort: 8080
+    nodePort: 30089
+    type: swagger
+    image: swaggerapi/swagger-ui
+    host: swagger.yas.lethanhcong.site
+
+  # --- BFF services (Spring Cloud Gateway) ---
+  storefront-bff:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30090
+    type: backend
+    host: storefront.yas.lethanhcong.site
+
+  backoffice-bff:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30091
+    type: backend
+    host: backoffice.yas.lethanhcong.site
+
+  # --- UI services (Next.js) ---
+  storefront:
+    enabled: true
+    tag: latest
+    containerPort: 3000
+    nodePort: 30092
+    type: ui
+
+  backoffice:
+    enabled: true
+    tag: latest
+    containerPort: 3000
+    nodePort: 30093
+    type: ui
+
+# ============================================================
+# Spring Boot shared application config
+# (rendered into ConfigMap, mounted to all backend services)
+# ============================================================
+applicationConfig:
+  server:
+    shutdown: graceful
+    port: 80
+
+  management:
+    server:
+      port: 8090
+    health:
+      readinessstate:
+        enabled: true
+      livenessstate:
+        enabled: true
+    endpoints:
+      web:
+        exposure:
+          include: prometheus, health
+    endpoint:
+      health:
+        probes:
+          enabled: true
+        show-details: always
+
+  spring:
+    lifecycle:
+      timeout-per-shutdown-phase: 30s
+    security:
+      oauth2:
+        resourceserver:
+          jwt:
+            issuer-uri: http://identity.yas.lethanhcong.site/realms/Yas
+    datasource:
+      url:
+      username: ${POSTGRESQL_USERNAME}
+      password: ${POSTGRESQL_PASSWORD}
+    kafka:
+      bootstrap-servers: kafka-cluster-kafka-brokers.kafka:9092
+      consumer:
+        bootstrap-servers: kafka-cluster-kafka-brokers.kafka:9092
+
+  yas:
+    services:
+      cart: http://cart
+      customer: http://customer
+      inventory: http://inventory
+      location: http://location
+      media: http://media
+      order: http://order
+      payment: http://payment
+      payment-paypal: http://payment-paypal
+      product: http://product
+      promotion: http://promotion
+      rating: http://rating
+      search: http://search
+      tax: http://tax
+      sampledata: http://sampledata
+      recommendation: http://recommendation
+
+# Swagger-UI config
+swaggerUrls: "[{ url: 'http://api.yas.lethanhcong.site/product/v3/api-docs', name: 'Product' }, { url: 'http://api.yas.lethanhcong.site/cart/v3/api-docs', name: 'Cart' }, { url: 'http://api.yas.lethanhcong.site/order/v3/api-docs', name: 'Order' }, { url: 'http://api.yas.lethanhcong.site/payment/v3/api-docs', name: 'Payment' }, { url: 'http://api.yas.lethanhcong.site/customer/v3/api-docs', name: 'Customer' }, { url: 'http://api.yas.lethanhcong.site/search/v3/api-docs', name: 'Search' }, { url: 'http://api.yas.lethanhcong.site/tax/v3/api-docs', name: 'Tax' }]"
