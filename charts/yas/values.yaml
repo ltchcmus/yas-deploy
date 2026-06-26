@@ -34,7 +34,7 @@ global:
   elasticsearch:
     url: elasticsearch-es-http.elasticsearch:9200
     username: elastic
-    password: lBLNV0QQvxzxvjqgi4oJMFQr
+    password: JbqJhEPOFE9VskmOLX4OXSod
 
 # ============================================================
 # Services
@@ -268,7 +268,7 @@ applicationConfig:
       uris: http://elasticsearch-es-http.elasticsearch:9200
       url: http://elasticsearch-es-http.elasticsearch:9200
       username: elastic
-      password: lBLNV0QQvxzxvjqgi4oJMFQr
+      password: JbqJhEPOFE9VskmOLX4OXSod
 
   keycloak:
     auth-server-url: http://identity.yas.lethanhcong.site/auth
