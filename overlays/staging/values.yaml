@@ -1,7 +1,14 @@
+global:
+  domain: staging.yas.lethanhcong.site
+
 services:
-  storefront-ui:
+  storefront-bff:
     host: staging.storefront.yas.lethanhcong.site
-  backoffice-ui:
+  backoffice-bff:
     host: staging.backoffice.yas.lethanhcong.site
   swagger-ui:
     host: staging.swagger.yas.lethanhcong.site
+
+  # Optional: different database config for staging
+  # postgresql:
+  #   databaseName: staging_...

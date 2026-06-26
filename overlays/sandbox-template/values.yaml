@@ -1,9 +1,9 @@
-# This is a template for sandbox environments.
-# The GitHub Action developer_build will copy this file and modify the tags/ports.
+# Template cho developer sandbox
+# developer_build workflow sẽ render file này để vô hiệu hoá Ingress (dùng NodePort)
 services:
-  storefront-ui:
-    host: "" # No ingress for sandbox, rely on NodePort
-  backoffice-ui:
+  storefront-bff:
+    host: ""
+  backoffice-bff:
     host: ""
   swagger-ui:
     host: ""
