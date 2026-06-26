@@ -260,6 +260,10 @@ applicationConfig:
       bootstrap-servers: kafka-cluster-kafka-brokers.kafka:9092
       consumer:
         bootstrap-servers: kafka-cluster-kafka-brokers.kafka:9092
+    elasticsearch:
+      uris: http://elasticsearch-es-http.elasticsearch:9200
+      username: elastic
+      password: JbqJhEPOFE9VskmOLX4OXSod
 
   yas:
     services:
@@ -276,11 +280,6 @@ applicationConfig:
       payment-paypal: http://payment-paypal
       recommendation: http://recommendation
       webhook: http://webhook
-
-  elasticsearch:
-    url: elasticsearch-es-http.elasticsearch:9200
-    username: elastic
-    password: JbqJhEPOFE9VskmOLX4OXSod
 
 # Swagger-UI config
 swaggerUrls: "[{ url: 'http://api.yas.lethanhcong.site/product/v3/api-docs', name: 'Product' }, { url: 'http://api.yas.lethanhcong.site/cart/v3/api-docs', name: 'Cart' }, { url: 'http://api.yas.lethanhcong.site/order/v3/api-docs', name: 'Order' }, { url: 'http://api.yas.lethanhcong.site/customer/v3/api-docs', name: 'Customer' }, { url: 'http://api.yas.lethanhcong.site/search/v3/api-docs', name: 'Search' }, { url: 'http://api.yas.lethanhcong.site/tax/v3/api-docs', name: 'Tax' }, { url: 'http://api.yas.lethanhcong.site/payment/v3/api-docs', name: 'Payment' }]"
