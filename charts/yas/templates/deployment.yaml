@@ -62,6 +62,8 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: "kubernetes"
+            - name: SPRING_ELASTICSEARCH_URIS
+              value: "http://elasticsearch-es-http.elasticsearch.svc.cluster.local:9200"
             - name: LOGGING_CONFIG
               value: /opt/yas/config/logback.xml
             - name: SPRING_DATASOURCE_URL
