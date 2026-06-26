@@ -1,13 +1,12 @@
 {{- range $name, $svc := .Values.services }}
-{{- if and $svc.enabled $svc.host }}
+{{- if $svc.host }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $name }}-ingress
-  labels:
-    {{- include "yas.labels" $ | nindent 4 }}
-    app: {{ $name }}
+  name: {{ $name }}
+  annotations:
+    kubernetes.io/ingress.class: traefik
 spec:
   rules:
     - host: {{ $svc.host }}
@@ -19,6 +18,6 @@ spec:
               service:
                 name: {{ $name }}
                 port:
-                  number: {{ $svc.containerPort }}
+                  number: {{ $svc.port }}
 {{- end }}
 {{- end }}

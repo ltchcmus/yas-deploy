@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: yas-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ltchcmus/yas-deploy.git
+    targetRevision: main
+    path: charts/yas
+    helm:
+      valueFiles:
+      - ../../overlays/dev/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

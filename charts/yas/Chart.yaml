@@ -1,6 +1,6 @@
 apiVersion: v2
 name: yas
-description: YAS Microservices Umbrella Chart - Team Cong
+description: A Helm chart for YAS Microservices
 type: application
 version: 0.1.0
 appVersion: "1.0.0"

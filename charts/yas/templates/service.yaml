@@ -1,28 +1,17 @@
 {{- range $name, $svc := .Values.services }}
-{{- if $svc.enabled }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ $name }}
   labels:
-    {{- include "yas.labels" $ | nindent 4 }}
     app: {{ $name }}
 spec:
   type: NodePort
   selector:
     app: {{ $name }}
   ports:
-    - name: http
-      port: {{ $svc.containerPort }}
-      targetPort: http
-      protocol: TCP
+    - port: {{ $svc.port }}
+      targetPort: {{ $svc.port }}
       nodePort: {{ $svc.nodePort }}
-    {{- if eq ($svc.type | default "backend") "backend" }}
-    - name: metric
-      port: 8090
-      targetPort: metric
-      protocol: TCP
-    {{- end }}
-{{- end }}
 {{- end }}

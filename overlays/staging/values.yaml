@@ -1,0 +1,7 @@
+services:
+  storefront-ui:
+    host: staging.storefront.yas.lethanhcong.site
+  backoffice-ui:
+    host: staging.backoffice.yas.lethanhcong.site
+  swagger-ui:
+    host: staging.swagger.yas.lethanhcong.site
