@@ -280,19 +280,19 @@ applicationConfig:
   yas:
     publicUrl: http://storefront.yas.lethanhcong.site/api/media
     services:
-      cart: http://cart
-      customer: http://customer
-      inventory: http://inventory
-      media: http://media
-      order: http://order
-      product: http://product
-      search: http://search
-      tax: http://tax
-      sampledata: http://sampledata
-      payment: http://payment
-      payment-paypal: http://payment-paypal
-      recommendation: http://recommendation
-      webhook: http://webhook
+      cart: http://cart/cart
+      customer: http://customer/customer
+      inventory: http://inventory/inventory
+      media: http://media/media
+      order: http://order/order
+      product: http://product/product
+      search: http://search/search
+      tax: http://tax/tax
+      sampledata: http://sampledata/sampledata
+      payment: http://payment/payment
+      payment-paypal: http://payment-paypal/payment-paypal
+      recommendation: http://recommendation/recommendation
+      webhook: http://webhook/webhook
 
 
 
