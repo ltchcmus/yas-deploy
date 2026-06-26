@@ -266,6 +266,7 @@ applicationConfig:
         bootstrap-servers: kafka-cluster-kafka-brokers.kafka:9092
     elasticsearch:
       uris: http://elasticsearch-es-http.elasticsearch:9200
+      url: http://elasticsearch-es-http.elasticsearch:9200
       username: elastic
       password: JbqJhEPOFE9VskmOLX4OXSod
 
