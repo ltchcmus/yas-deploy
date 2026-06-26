@@ -100,7 +100,7 @@ data:
                   predicates:
                     - Path=/api/media/**
                   filters:
-                    - RewritePath=/api/(?<segment>.*), /${segment}
+                    - RewritePath=/api/media/(?<segment>.*), /${segment}
                     - TokenRelay=
                 - id: location_api
                   uri: http://location
