@@ -40,6 +40,17 @@ data:
     spring:
       cloud:
         gateway:
+          globalcors:
+            corsConfigurations:
+              '[/**]':
+                allowedOriginPatterns: "*"
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - OPTIONS
+                allowedHeaders: "*"
           server:
             webflux:
               default-filters:
