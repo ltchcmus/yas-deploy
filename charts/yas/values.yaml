@@ -270,6 +270,7 @@ applicationConfig:
       password: JbqJhEPOFE9VskmOLX4OXSod
 
   yas:
+    publicUrl: http://storefront.yas.lethanhcong.site/api/media
     services:
       cart: http://cart
       customer: http://customer
