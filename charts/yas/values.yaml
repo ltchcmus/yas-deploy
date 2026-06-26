@@ -250,12 +250,6 @@ applicationConfig:
           provider:
             keycloak:
               issuer-uri: http://identity.yas.lethanhcong.site/auth/realms/Yas
-  keycloak:
-    auth-server-url: http://identity.yas.lethanhcong.site/auth
-    realm: Yas
-    resource: customer-management
-    credentials:
-      secret: ${KEYCLOAK_CUSTOMER_MANAGEMENT_CLIENT_SECRET}
     datasource:
       url:
       username: ${POSTGRESQL_USERNAME}
@@ -274,6 +268,13 @@ applicationConfig:
       uris: http://elasticsearch-es-http.elasticsearch:9200
       username: elastic
       password: JbqJhEPOFE9VskmOLX4OXSod
+
+  keycloak:
+    auth-server-url: http://identity.yas.lethanhcong.site/auth
+    realm: Yas
+    resource: customer-management
+    credentials:
+      secret: ${KEYCLOAK_CUSTOMER_MANAGEMENT_CLIENT_SECRET}
 
   yas:
     publicUrl: http://storefront.yas.lethanhcong.site/api/media
