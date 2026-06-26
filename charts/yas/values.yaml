@@ -24,17 +24,17 @@ global:
     password: redis
 
   keycloak:
-    issuerUri: http://identity.yas.lethanhcong.site/realms/Yas
-    authUrl: http://identity.yas.lethanhcong.site/realms/Yas/protocol/openid-connect/auth
-    tokenUrl: http://identity.yas.lethanhcong.site/realms/Yas/protocol/openid-connect/token
-    backofficeBffClientSecret: update-me
-    storefrontBffClientSecret: update-me
-    customerManagementClientSecret: update-me
+    issuerUri: http://identity.yas.lethanhcong.site/auth/realms/Yas
+    authUrl: http://identity.yas.lethanhcong.site/auth/realms/Yas/protocol/openid-connect/auth
+    tokenUrl: http://identity.yas.lethanhcong.site/auth/realms/Yas/protocol/openid-connect/token
+    backofficeBffClientSecret: TVacLC0cQ8tiiEKiTVerTb2YvwQ1TRJF
+    storefrontBffClientSecret: ZrU9I0q2uXBglBnmvyJdkl1lf0ncr8tn
+    customerManagementClientSecret: NKAr3rnjwm9jlakgKpelukZGFaHYqIWE
 
   elasticsearch:
-    url: elasticsearch-es-http.elasticsearch
-    username: yas
-    password: LarUmB3A49NTg9YmgW4=
+    url: elasticsearch-es-http.elasticsearch:9200
+    username: elastic
+    password: JbqJhEPOFE9VskmOLX4OXSod
 
 # ============================================================
 # Services
@@ -45,120 +45,168 @@ global:
 # ============================================================
 
 services:
-  # --- Team Cong: backend services ---
-  cart:
+  # 1. product
+  product:
     enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30080
     type: backend
-    databaseName: cart
+    databaseName: product
 
-  order:
+  # 2. cart
+  cart:
     enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30081
     type: backend
-    databaseName: order
+    databaseName: cart
 
-  payment:
+  # 3. order
+  order:
     enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30082
     type: backend
-    databaseName: payment
+    databaseName: order
 
-  payment-paypal:
+  # 4. customer
+  customer:
     enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30083
     type: backend
-    databaseName: payment
+    databaseName: customer
 
-  customer:
+  # 5. inventory
+  inventory:
     enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30084
     type: backend
-    databaseName: customer
+    databaseName: inventory
 
-  search:
+  # 6. tax
+  tax:
     enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30085
     type: backend
-    databaseName: search
+    databaseName: tax
 
-  recommendation:
+  # 7. media
+  media:
     enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30086
     type: backend
-    databaseName: recommendation
+    databaseName: media
 
-  webhook:
+  # 8. search
+  search:
     enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30087
     type: backend
-    databaseName: webhook
+    databaseName: search
+    podAnnotations:
+      traffic.sidecar.istio.io/excludeOutboundPorts: "9200"
 
-  sampledata:
+  # 9. storefront-bff
+  storefront-bff:
     enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30088
     type: backend
-    databaseName: sampledata
+    host: storefront.yas.lethanhcong.site
 
-  # --- Swagger-UI (stock image, no CI build needed) ---
-  swagger-ui:
+  # 10. storefront-ui (storefront)
+  storefront:
     enabled: true
-    tag: v4.16.0
-    containerPort: 8080
+    tag: latest
+    containerPort: 3000
     nodePort: 30089
-    type: swagger
-    image: swaggerapi/swagger-ui
-    host: swagger.yas.lethanhcong.site
+    type: ui
 
-  # --- BFF services (Spring Cloud Gateway) ---
-  storefront-bff:
+  # 11. backoffice-bff
+  backoffice-bff:
     enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30090
     type: backend
-    host: storefront.yas.lethanhcong.site
-
-  backoffice-bff:
-    enabled: true
-    tag: latest
-    containerPort: 80
-    nodePort: 30091
-    type: backend
     host: backoffice.yas.lethanhcong.site
 
-  # --- UI services (Next.js) ---
-  storefront:
-    enabled: true
-    tag: latest
-    containerPort: 3000
-    nodePort: 30092
-    type: ui
-
+  # 12. backoffice-ui (backoffice)
   backoffice:
     enabled: true
     tag: latest
     containerPort: 3000
-    nodePort: 30093
+    nodePort: 30091
     type: ui
+
+  # 13. swagger-ui
+  swagger-ui:
+    enabled: true
+    tag: v4.16.0
+    containerPort: 8080
+    nodePort: 30092
+    type: swagger
+    image: swaggerapi/swagger-ui
+    host: swagger.yas.lethanhcong.site
+
+  # 14. sampledata
+  sampledata:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30093
+    type: backend
+    databaseName: sampledata
+
+  # 15. payment
+  payment:
+    enabled: false
+    tag: latest
+    containerPort: 80
+    nodePort: 30094
+    type: backend
+    databaseName: payment
+
+  # 16. payment-paypal
+  payment-paypal:
+    enabled: false
+    tag: latest
+    containerPort: 80
+    nodePort: 30095
+    type: backend
+    databaseName: payment
+
+  # 17. recommendation
+  recommendation:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30096
+    type: backend
+    databaseName: recommendation
+
+  # 18. webhook
+  webhook:
+    enabled: true
+    tag: latest
+    containerPort: 80
+    nodePort: 30097
+    type: backend
+    databaseName: webhook
 
 # ============================================================
 # Spring Boot shared application config
@@ -188,17 +236,26 @@ applicationConfig:
         show-details: always
 
   spring:
+    threads:
+      virtual:
+        enabled: false
     lifecycle:
       timeout-per-shutdown-phase: 30s
     security:
       oauth2:
         resourceserver:
           jwt:
-            issuer-uri: http://identity.yas.lethanhcong.site/realms/Yas
+            issuer-uri: http://identity.yas.lethanhcong.site/auth/realms/Yas
+        client:
+          provider:
+            keycloak:
+              issuer-uri: http://identity.yas.lethanhcong.site/auth/realms/Yas
     datasource:
       url:
       username: ${POSTGRESQL_USERNAME}
       password: ${POSTGRESQL_PASSWORD}
+      hikari:
+        maximum-pool-size: 4
     kafka:
       bootstrap-servers: kafka-cluster-kafka-brokers.kafka:9092
       consumer:
@@ -209,18 +266,21 @@ applicationConfig:
       cart: http://cart
       customer: http://customer
       inventory: http://inventory
-      location: http://location
       media: http://media
       order: http://order
-      payment: http://payment
-      payment-paypal: http://payment-paypal
       product: http://product
-      promotion: http://promotion
-      rating: http://rating
       search: http://search
       tax: http://tax
       sampledata: http://sampledata
+      payment: http://payment
+      payment-paypal: http://payment-paypal
       recommendation: http://recommendation
+      webhook: http://webhook
+
+  elasticsearch:
+    url: elasticsearch-es-http.elasticsearch:9200
+    username: elastic
+    password: JbqJhEPOFE9VskmOLX4OXSod
 
 # Swagger-UI config
-swaggerUrls: "[{ url: 'http://api.yas.lethanhcong.site/product/v3/api-docs', name: 'Product' }, { url: 'http://api.yas.lethanhcong.site/cart/v3/api-docs', name: 'Cart' }, { url: 'http://api.yas.lethanhcong.site/order/v3/api-docs', name: 'Order' }, { url: 'http://api.yas.lethanhcong.site/payment/v3/api-docs', name: 'Payment' }, { url: 'http://api.yas.lethanhcong.site/customer/v3/api-docs', name: 'Customer' }, { url: 'http://api.yas.lethanhcong.site/search/v3/api-docs', name: 'Search' }, { url: 'http://api.yas.lethanhcong.site/tax/v3/api-docs', name: 'Tax' }]"
+swaggerUrls: "[{ url: 'http://api.yas.lethanhcong.site/product/v3/api-docs', name: 'Product' }, { url: 'http://api.yas.lethanhcong.site/cart/v3/api-docs', name: 'Cart' }, { url: 'http://api.yas.lethanhcong.site/order/v3/api-docs', name: 'Order' }, { url: 'http://api.yas.lethanhcong.site/customer/v3/api-docs', name: 'Customer' }, { url: 'http://api.yas.lethanhcong.site/search/v3/api-docs', name: 'Search' }, { url: 'http://api.yas.lethanhcong.site/tax/v3/api-docs', name: 'Tax' }, { url: 'http://api.yas.lethanhcong.site/payment/v3/api-docs', name: 'Payment' }]"

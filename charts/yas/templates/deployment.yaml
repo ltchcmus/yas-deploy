@@ -17,6 +17,12 @@ spec:
     metadata:
       labels:
         app: {{ $name }}
+      {{- if $svc.podAnnotations }}
+      annotations:
+        {{- range $k, $v := $svc.podAnnotations }}
+        {{ $k }}: {{ $v | quote }}
+        {{- end }}
+      {{- end }}
     spec:
       containers:
         - name: {{ $name }}
@@ -36,15 +42,28 @@ spec:
             - secretRef:
                 name: yas-postgresql-credentials-secret
           env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "kubernetes"
             - name: LOGGING_CONFIG
               value: /opt/yas/config/logback.xml
             - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://{{ $.Values.global.postgresql.host }}:{{ $.Values.global.postgresql.port }}/{{ $svc.databaseName | default $name }}"
-            - name: SPRING_CONFIG_ADDITIONAL_LOCATION
-              value: /opt/yas/config/application.yaml
+            {{- if hasSuffix "-bff" $name }}
+            - name: UI_HOST
+              value: "http://{{ trimSuffix "-bff" $name }}:3000"
+            - name: SPRING_CONFIG_IMPORT
+              value: optional:file:/opt/yas/config/application.yaml,optional:file:/opt/yas/gateway/gateway-routes-config.yaml
+            {{- else }}
+            - name: SPRING_CONFIG_IMPORT
+              value: optional:file:/opt/yas/config/application.yaml
+            {{- end }}
           volumeMounts:
             - mountPath: /opt/yas/config
               name: yas-configuration
+            {{- if hasSuffix "-bff" $name }}
+            - mountPath: /opt/yas/gateway
+              name: yas-gateway-routes
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
@@ -61,6 +80,8 @@ spec:
             failureThreshold: 20
           {{- else if eq $svc.type "ui" }}
           env:
+            - name: HOSTNAME
+              value: "0.0.0.0"
             - name: API_BASE_PATH
               value: "http://storefront.{{ $.Values.global.domain }}/api"
           {{- else if eq $svc.type "swagger" }}
@@ -82,6 +103,11 @@ spec:
         - name: yas-configuration
           configMap:
             name: yas-configuration-configmap
+        {{- if hasSuffix "-bff" $name }}
+        - name: yas-gateway-routes
+          configMap:
+            name: yas-gateway-routes-config-configmap
+        {{- end }}
       {{- end }}
       terminationGracePeriodSeconds: 30
 {{- end }}
