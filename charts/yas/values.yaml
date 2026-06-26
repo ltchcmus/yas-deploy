@@ -183,7 +183,7 @@ services:
 
   # 16. payment-paypal
   payment-paypal:
-    enabled: false
+    enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30095
