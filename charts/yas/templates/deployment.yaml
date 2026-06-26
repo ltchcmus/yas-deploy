@@ -24,6 +24,22 @@ spec:
         {{- end }}
       {{- end }}
     spec:
+      {{- if eq $name "media" }}
+      initContainers:
+        - name: init-media-images
+          image: alpine:latest
+          command: ["sh", "-c"]
+          args:
+            - |
+              wget -O repo.zip https://github.com/devops-teamk23/yas/archive/refs/heads/main.zip
+              unzip -q repo.zip
+              mkdir -p /images
+              cp -r yas-main/sampledata/images/* /images/
+              chmod -R 777 /images
+          volumeMounts:
+            - mountPath: /images
+              name: media-images
+      {{- end }}
       containers:
         - name: {{ $name }}
           image: {{ include "yas.imageName" (dict "global" $.Values.global "name" $name "svc" $svc) | quote }}
@@ -63,6 +79,10 @@ spec:
             {{- if hasSuffix "-bff" $name }}
             - mountPath: /opt/yas/gateway
               name: yas-gateway-routes
+            {{- end }}
+            {{- if eq $name "media" }}
+            - mountPath: /images
+              name: media-images
             {{- end }}
           livenessProbe:
             httpGet:
@@ -107,6 +127,10 @@ spec:
         - name: yas-gateway-routes
           configMap:
             name: yas-gateway-routes-config-configmap
+        {{- end }}
+        {{- if eq $name "media" }}
+        - name: media-images
+          emptyDir: {}
         {{- end }}
       {{- end }}
       terminationGracePeriodSeconds: 30
