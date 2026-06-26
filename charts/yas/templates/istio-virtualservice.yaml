@@ -1,0 +1,24 @@
+{{- range $name, $svc := .Values.services }}
+{{- if $svc.enabled }}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "yas.labels" $ | nindent 4 }}
+    app: {{ $name }}
+spec:
+  hosts:
+    - {{ $name }}
+  http:
+    - route:
+        - destination:
+            host: {{ $name }}
+      # Retry mechanism 
+      retries:
+        attempts: 3
+        perTryTimeout: 5s
+        retryOn: connect-failure,refused-stream,5xx
+{{- end }}
+{{- end }}
