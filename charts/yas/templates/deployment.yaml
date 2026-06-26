@@ -57,6 +57,8 @@ spec:
           envFrom:
             - secretRef:
                 name: yas-postgresql-credentials-secret
+            - secretRef:
+                name: yas-keycloak-credentials-secret
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: "kubernetes"
