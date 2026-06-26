@@ -87,7 +87,7 @@ spec:
           {{- else if eq $svc.type "swagger" }}
           env:
             - name: BASE_URL
-              value: /swagger-ui
+              value: /
             - name: URLS
               value: {{ $.Values.swaggerUrls | quote }}
           {{- end }}
