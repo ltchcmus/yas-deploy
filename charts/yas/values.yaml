@@ -174,7 +174,7 @@ services:
 
   # 15. payment
   payment:
-    enabled: false
+    enabled: true
     tag: latest
     containerPort: 80
     nodePort: 30094
@@ -282,4 +282,4 @@ applicationConfig:
       webhook: http://webhook
 
 # Swagger-UI config
-swaggerUrls: "[{ url: 'http://api.yas.lethanhcong.site/product/v3/api-docs', name: 'Product' }, { url: 'http://api.yas.lethanhcong.site/cart/v3/api-docs', name: 'Cart' }, { url: 'http://api.yas.lethanhcong.site/order/v3/api-docs', name: 'Order' }, { url: 'http://api.yas.lethanhcong.site/customer/v3/api-docs', name: 'Customer' }, { url: 'http://api.yas.lethanhcong.site/search/v3/api-docs', name: 'Search' }, { url: 'http://api.yas.lethanhcong.site/tax/v3/api-docs', name: 'Tax' }, { url: 'http://api.yas.lethanhcong.site/payment/v3/api-docs', name: 'Payment' }]"
+swaggerUrls: "[{ url: 'http://storefront.yas.lethanhcong.site/api/product/v3/api-docs', name: 'Product' }, { url: 'http://storefront.yas.lethanhcong.site/api/cart/v3/api-docs', name: 'Cart' }, { url: 'http://storefront.yas.lethanhcong.site/api/order/v3/api-docs', name: 'Order' }, { url: 'http://storefront.yas.lethanhcong.site/api/customer/v3/api-docs', name: 'Customer' }, { url: 'http://storefront.yas.lethanhcong.site/api/search/v3/api-docs', name: 'Search' }, { url: 'http://storefront.yas.lethanhcong.site/api/tax/v3/api-docs', name: 'Tax' }, { url: 'http://storefront.yas.lethanhcong.site/api/payment/v3/api-docs', name: 'Payment' }]"
