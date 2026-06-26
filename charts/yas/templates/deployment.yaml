@@ -63,7 +63,11 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: "kubernetes"
             - name: SPRING_ELASTICSEARCH_URIS
+              {{- if eq $name "search" }}
+              value: "http://localhost:9200"
+              {{- else }}
               value: "http://elasticsearch-es-http.elasticsearch.svc.cluster.local:9200"
+              {{- end }}
             - name: LOGGING_CONFIG
               value: /opt/yas/config/logback.xml
             - name: SPRING_DATASOURCE_URL
@@ -122,6 +126,13 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "500m"
+        {{- if eq $name "search" }}
+        - name: https-proxy
+          image: alpine/socat
+          args:
+            - "TCP4-LISTEN:9200,fork"
+            - "OPENSSL:elasticsearch-es-http.elasticsearch.svc.cluster.local:9200,verify=0"
+        {{- end }}
       {{- if eq ($svc.type | default "backend") "backend" }}
       volumes:
         - name: yas-configuration
