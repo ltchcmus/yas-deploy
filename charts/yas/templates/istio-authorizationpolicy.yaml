@@ -1,0 +1,22 @@
+{{- range $name, $svc := .Values.services }}
+{{- if $svc.enabled }}
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ $name }}-policy
+  labels:
+    {{- include "yas.labels" $ | nindent 4 }}
+    app: {{ $name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ $name }}
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            # Cho phép tất cả các nguồn nội bộ trong cùng namespace giao tiếp
+            namespaces: ["dev", "staging"]
+{{- end }}
+{{- end }}
