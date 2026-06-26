@@ -23,17 +23,6 @@ global:
     port: "6379"
     password: redis
 
-swaggerUrls: >-
-  [
-    { "url": "http://storefront.yas.lethanhcong.site/api/product/v3/api-docs", "name": "Product Service" },
-    { "url": "http://storefront.yas.lethanhcong.site/api/cart/v3/api-docs", "name": "Cart Service" },
-    { "url": "http://storefront.yas.lethanhcong.site/api/order/v3/api-docs", "name": "Order Service" },
-    { "url": "http://storefront.yas.lethanhcong.site/api/customer/v3/api-docs", "name": "Customer Service" },
-    { "url": "http://storefront.yas.lethanhcong.site/api/inventory/v3/api-docs", "name": "Inventory Service" },
-    { "url": "http://storefront.yas.lethanhcong.site/api/media/v3/api-docs", "name": "Media Service" },
-    { "url": "http://storefront.yas.lethanhcong.site/api/search/v3/api-docs", "name": "Search Service" }
-  ]
-
   keycloak:
     issuerUri: http://identity.yas.lethanhcong.site/auth/realms/Yas
     authUrl: http://identity.yas.lethanhcong.site/auth/realms/Yas/protocol/openid-connect/auth
@@ -295,6 +284,8 @@ applicationConfig:
       payment-paypal: http://payment-paypal
       recommendation: http://recommendation
       webhook: http://webhook
+
+
 
 # Swagger-UI config
 swaggerUrls: "[{ url: 'http://storefront.yas.lethanhcong.site/api/product/v3/api-docs', name: 'Product' }, { url: 'http://storefront.yas.lethanhcong.site/api/cart/v3/api-docs', name: 'Cart' }, { url: 'http://storefront.yas.lethanhcong.site/api/order/v3/api-docs', name: 'Order' }, { url: 'http://storefront.yas.lethanhcong.site/api/customer/v3/api-docs', name: 'Customer' }, { url: 'http://storefront.yas.lethanhcong.site/api/search/v3/api-docs', name: 'Search' }, { url: 'http://storefront.yas.lethanhcong.site/api/tax/v3/api-docs', name: 'Tax' }, { url: 'http://storefront.yas.lethanhcong.site/api/payment/v3/api-docs', name: 'Payment' }]"
