@@ -1,10 +1,12 @@
 {{- range $name, $svc := .Values.services }}
+{{- if $svc.enabled }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ $name }}
   labels:
+    {{- include "yas.labels" $ | nindent 4 }}
     app: {{ $name }}
 spec:
   replicas: 1
@@ -15,14 +17,137 @@ spec:
     metadata:
       labels:
         app: {{ $name }}
+      {{- if $svc.podAnnotations }}
+      annotations:
+        {{- range $k, $v := $svc.podAnnotations }}
+        {{ $k }}: {{ $v | quote }}
+        {{- end }}
+      {{- end }}
     spec:
+      {{- if eq $name "media" }}
+      initContainers:
+        - name: init-media-images
+          image: alpine:latest
+          command: ["sh", "-c"]
+          args:
+            - |
+              wget -O repo.zip https://github.com/devops-teamk23/yas/archive/refs/heads/main.zip
+              unzip -q repo.zip
+              mkdir -p /images
+              cp -r yas-main/sampledata/images/* /images/
+              chmod -R 777 /images
+          volumeMounts:
+            - mountPath: /images
+              name: media-images
+      {{- end }}
       containers:
         - name: {{ $name }}
-          image: "{{ $.Values.registry }}/yas-{{ $name }}:{{ $svc.tag }}"
+          image: {{ include "yas.imageName" (dict "global" $.Values.global "name" $name "svc" $svc) | quote }}
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: {{ $svc.port }}
+            - name: http
+              containerPort: {{ $svc.containerPort }}
+              protocol: TCP
+            {{- if eq ($svc.type | default "backend") "backend" }}
+            - name: metric
+              containerPort: 8090
+              protocol: TCP
+            {{- end }}
+          {{- if eq ($svc.type | default "backend") "backend" }}
+          envFrom:
+            - secretRef:
+                name: yas-postgresql-credentials-secret
+            - secretRef:
+                name: yas-keycloak-credentials-secret
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: prod
+              value: "kubernetes"
+            - name: SPRING_ELASTICSEARCH_URIS
+              {{- if eq $name "search" }}
+              value: "http://localhost:9200"
+              {{- else }}
+              value: "http://elasticsearch-es-http.elasticsearch.svc.cluster.local:9200"
+              {{- end }}
+            - name: LOGGING_CONFIG
+              value: /opt/yas/config/logback.xml
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://{{ $.Values.global.postgresql.host }}:{{ $.Values.global.postgresql.port }}/{{ $svc.databaseName | default $name }}"
+            {{- if hasSuffix "-bff" $name }}
+            - name: UI_HOST
+              value: "http://{{ trimSuffix "-bff" $name }}:3000"
+            - name: SPRING_CONFIG_IMPORT
+              value: optional:file:/opt/yas/config/application.yaml,optional:file:/opt/yas/gateway/gateway-routes-config.yaml
+            {{- else }}
+            - name: SPRING_CONFIG_IMPORT
+              value: optional:file:/opt/yas/config/application.yaml
+            {{- end }}
+          volumeMounts:
+            - mountPath: /opt/yas/config
+              name: yas-configuration
+            {{- if hasSuffix "-bff" $name }}
+            - mountPath: /opt/yas/gateway
+              name: yas-gateway-routes
+            {{- end }}
+            {{- if eq $name "media" }}
+            - mountPath: /images
+              name: media-images
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: metric
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 20
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: metric
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 20
+          {{- else if eq $svc.type "ui" }}
+          env:
+            - name: HOSTNAME
+              value: "0.0.0.0"
+            - name: API_BASE_PATH
+              value: "http://storefront.{{ $.Values.global.domain }}/api"
+          {{- else if eq $svc.type "swagger" }}
+          env:
+            - name: BASE_URL
+              value: /
+            - name: URLS
+              value: {{ $.Values.swaggerUrls | quote }}
+          {{- end }}
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+        {{- if eq $name "search" }}
+        - name: https-proxy
+          image: alpine/socat
+          args:
+            - "TCP4-LISTEN:9200,fork"
+            - "OPENSSL:elasticsearch-es-http.elasticsearch.svc.cluster.local:9200,verify=0"
+        {{- end }}
+      {{- if eq ($svc.type | default "backend") "backend" }}
+      volumes:
+        - name: yas-configuration
+          configMap:
+            name: yas-configuration-configmap
+        {{- if hasSuffix "-bff" $name }}
+        - name: yas-gateway-routes
+          configMap:
+            name: yas-gateway-routes-config-configmap
+        {{- end }}
+        {{- if eq $name "media" }}
+        - name: media-images
+          emptyDir: {}
+        {{- end }}
+      {{- end }}
+      terminationGracePeriodSeconds: 30
+{{- end }}
 {{- end }}
