@@ -283,7 +283,7 @@ applicationConfig:
       cart: http://cart/cart
       customer: http://customer/customer
       inventory: http://inventory/inventory
-      media: http://media/media
+      media: http://media
       order: http://order/order
       product: http://product/product
       search: http://search/search
