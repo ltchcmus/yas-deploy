@@ -111,7 +111,7 @@ spec:
             - name: HOSTNAME
               value: "0.0.0.0"
             - name: API_BASE_PATH
-              value: "http://{{ index $.Values.services (printf \"%s-bff\" $name) \"host\" }}/api"
+              value: 'http://{{ index $.Values.services (printf "%s-bff" $name) "host" }}/api'
           {{- else if eq $svc.type "swagger" }}
           env:
             - name: BASE_URL
