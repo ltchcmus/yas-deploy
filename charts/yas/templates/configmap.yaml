@@ -42,7 +42,7 @@ data:
         gateway:
           globalcors:
             corsConfigurations:
-              '[/**]':
+              "/**":
                 allowedOriginPatterns: "*"
                 allowedMethods:
                   - GET
