@@ -8,7 +8,3 @@ services:
     host: staging.backoffice.yas.lethanhcong.site
   swagger-ui:
     host: staging.swagger.yas.lethanhcong.site
-
-  # Optional: different database config for staging
-  # postgresql:
-  #   databaseName: staging_...
