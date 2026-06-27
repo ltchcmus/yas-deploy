@@ -156,7 +156,7 @@ services:
   # 13. swagger-ui
   swagger-ui:
     enabled: true
-    tag: v4.16.0
+    tag: v5.17.14
     containerPort: 8080
     nodePort: 30092
     type: swagger

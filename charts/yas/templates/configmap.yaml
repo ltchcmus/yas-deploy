@@ -82,6 +82,7 @@ data:
                   filters:
                     - RewritePath=/api/(?<segment>.*), /${segment}
                     - TokenRelay=
+                    - AddResponseHeader=Access-Control-Allow-Origin, *
                 - id: customer_api
                   uri: http://customer
                   predicates:
