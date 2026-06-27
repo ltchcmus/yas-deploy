@@ -1,5 +1,6 @@
 global:
   domain: staging.yas.lethanhcong.site
+  serviceType: ClusterIP
 
 services:
   storefront-bff:

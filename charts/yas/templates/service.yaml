@@ -9,7 +9,7 @@ metadata:
     {{- include "yas.labels" $ | nindent 4 }}
     app: {{ $name }}
 spec:
-  type: NodePort
+  type: {{ $.Values.global.serviceType | default "NodePort" }}
   selector:
     app: {{ $name }}
   ports:
@@ -17,7 +17,9 @@ spec:
       port: {{ $svc.containerPort }}
       targetPort: http
       protocol: TCP
+      {{- if eq ($.Values.global.serviceType | default "NodePort") "NodePort" }}
       nodePort: {{ $svc.nodePort }}
+      {{- end }}
     {{- if eq ($svc.type | default "backend") "backend" }}
     - name: metric
       port: 8090
