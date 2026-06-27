@@ -16,7 +16,11 @@ spec:
   rules:
     - from:
         - source:
-            # Cho phép tất cả các nguồn nội bộ trong cùng namespace giao tiếp
-            namespaces: ["dev", "staging"]
+            # Cho phép tất cả các nguồn nội bộ trong cùng namespace giao tiếp, và từ ingress
+            namespaces: ["dev", "staging", "ingress-nginx", "istio-system"]
+    - to:
+        - operation:
+            # Cho phép Kubelet gọi API health check
+            paths: ["/actuator/health/liveness", "/actuator/health/readiness"]
 {{- end }}
 {{- end }}
