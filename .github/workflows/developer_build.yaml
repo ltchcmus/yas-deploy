@@ -6,7 +6,7 @@ on:
       namespace_name:
         description: 'Namespace to deploy'
         required: true
-        default: 'developer_build'
+        default: 'developer-build'
       backoffice_branch:
         description: 'Branch for backoffice'
         default: 'main'
@@ -110,7 +110,7 @@ jobs:
             cd ~/apps/yas-deploy
             git pull origin main
             
-            helm upgrade --install developer_build charts/yas \
+            helm upgrade --install developer-build charts/yas \
               --namespace ${{ github.event.inputs.namespace_name }} --create-namespace \
               --set global.serviceType=NodePort \
               --set global.setHosts=false \
@@ -135,7 +135,7 @@ jobs:
       - name: Print Access Info
         run: |
           echo "### Deploy successfully!" >> $GITHUB_STEP_SUMMARY
-          echo "System has been deployed successfully with Helm release **developer_build** in namespace **${{ github.event.inputs.namespace_name }}**" >> $GITHUB_STEP_SUMMARY
+          echo "Hệ thống đã được cài đặt thành công với Helm release **developer-build** vào namespace **${{ github.event.inputs.namespace_name }}**" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Access the application at the following NodePorts:" >> $GITHUB_STEP_SUMMARY
           echo "- **Storefront UI**: [http://yas.lethanhcong.site:30089](http://yas.lethanhcong.site:30089)" >> $GITHUB_STEP_SUMMARY

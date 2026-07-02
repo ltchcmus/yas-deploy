@@ -6,7 +6,7 @@ on:
       namespace_name:
         description: 'Namespace to destroy'
         required: true
-        default: 'developer_build'
+        default: 'developer-build'
 
 jobs:
   destroy:
@@ -20,10 +20,10 @@ jobs:
           password: ${{ secrets.VPS_PASSWORD }}
           port: ${{ secrets.VPS_PORT }}
           script: |
-            helm uninstall developer_build --namespace ${{ github.event.inputs.namespace_name }} --ignore-not-found
+            helm uninstall developer-build --namespace ${{ github.event.inputs.namespace_name }} --ignore-not-found
             kubectl delete namespace ${{ github.event.inputs.namespace_name }} --ignore-not-found
 
       - name: Print Destroy Result
         run: |
           echo "### Clean!" >> $GITHUB_STEP_SUMMARY
-          echo " Helm release **developer_build** and namespace **${{ github.event.inputs.namespace_name }}** have been cleaned up" >> $GITHUB_STEP_SUMMARY
+          echo "Đã xóa toàn bộ Helm release **developer-build** và giải phóng namespace **${{ github.event.inputs.namespace_name }}**" >> $GITHUB_STEP_SUMMARY
