@@ -9,6 +9,8 @@ metadata:
     {{- include "yas.labels" $ | nindent 4 }}
     app: {{ $name }}
 spec:
+  exportTo:
+    - "."
   hosts:
     - {{ $name }}
   http:
