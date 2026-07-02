@@ -7,4 +7,4 @@ services:
   storefront:
     tag: 637827f3799fec680e7fcf2ae8f999fc3206d1a6
   search:
-    tag: b58d18b2a1142130a1f536758a43e5a0ed53e535
+    tag: 5215286550944fb1c142b38831f9c1ba65e2ad69
