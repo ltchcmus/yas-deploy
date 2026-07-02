@@ -13,7 +13,7 @@ global:
     host: postgresql.postgres
     port: "5432"
     username: yasadminuser
-    password: pR6aHLoj6V9MebF7Zel36hUTo8MjLqKh7fPZHC5eJeEW3rkHNtpI6UUJpH7dzZAh
+    password: soocJ8uKv9VdzID3BrnwhgyqIMGcWzXP6LJ6UuzoEH8Y34Drh85PfgFXNYtPQfn2
 
   kafka:
     bootstrapServers: kafka-cluster-kafka-brokers.kafka:9092
@@ -34,7 +34,7 @@ global:
   elasticsearch:
     url: elasticsearch-es-http.elasticsearch:9200
     username: elastic
-    password: JbqJhEPOFE9VskmOLX4OXSod
+    password: JdcupfhtTZSPBSB7rQKNOSNK
 
 # ============================================================
 # Services
@@ -268,7 +268,7 @@ applicationConfig:
       uris: http://elasticsearch-es-http.elasticsearch:9200
       url: http://elasticsearch-es-http.elasticsearch:9200
       username: elastic
-      password: JbqJhEPOFE9VskmOLX4OXSod
+      password: JdcupfhtTZSPBSB7rQKNOSNK
 
   keycloak:
     auth-server-url: http://identity.yas.lethanhcong.site/auth
