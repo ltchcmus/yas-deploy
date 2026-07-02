@@ -117,23 +117,23 @@ jobs:
               --namespace ${{ github.event.inputs.namespace_name }} \
               --set global.serviceType=NodePort \
               --set global.setHosts=false \
-              --set tax.tag=${{ env.TAX_TAG }} \
-              --set cart.tag=${{ env.CART_TAG }} \
-              --set order.tag=${{ env.ORDER_TAG }} \
-              --set customer.tag=${{ env.CUSTOMER_TAG }} \
-              --set inventory.tag=${{ env.INVENTORY_TAG }} \
-              --set media.tag=${{ env.MEDIA_TAG }} \
-              --set payment.tag=${{ env.PAYMENT_TAG }} \
-              --set product.tag=${{ env.PRODUCT_TAG }} \
-              --set recommendation.tag=${{ env.RECOMMENDATION_TAG }} \
-              --set sampledata.tag=${{ env.SAMPLEDATA_TAG }} \
-              --set search.tag=${{ env.SEARCH_TAG }} \
-              --set storefront.tag=${{ env.STOREFRONT_TAG }} \
-              --set storefront-bff.tag=${{ env.STOREFRONT_BFF_TAG }} \
-              --set swagger-ui.tag=${{ env.SWAGGER_UI_TAG }} \
-              --set webhook.tag=${{ env.WEBHOOK_TAG }} \
-              --set backoffice.tag=${{ env.BACKOFFICE_TAG }} \
-              --set backoffice-bff.tag=${{ env.BACKOFFICE_BFF_TAG }}
+              --set services.tax.tag=${{ env.TAX_TAG }} \
+              --set services.cart.tag=${{ env.CART_TAG }} \
+              --set services.order.tag=${{ env.ORDER_TAG }} \
+              --set services.customer.tag=${{ env.CUSTOMER_TAG }} \
+              --set services.inventory.tag=${{ env.INVENTORY_TAG }} \
+              --set services.media.tag=${{ env.MEDIA_TAG }} \
+              --set services.payment.tag=${{ env.PAYMENT_TAG }} \
+              --set services.product.tag=${{ env.PRODUCT_TAG }} \
+              --set services.recommendation.tag=${{ env.RECOMMENDATION_TAG }} \
+              --set services.sampledata.tag=${{ env.SAMPLEDATA_TAG }} \
+              --set services.search.tag=${{ env.SEARCH_TAG }} \
+              --set services.storefront.tag=${{ env.STOREFRONT_TAG }} \
+              --set services.storefront-bff.tag=${{ env.STOREFRONT_BFF_TAG }} \
+              --set services.swagger-ui.tag=${{ env.SWAGGER_UI_TAG }} \
+              --set services.webhook.tag=${{ env.WEBHOOK_TAG }} \
+              --set services.backoffice.tag=${{ env.BACKOFFICE_TAG }} \
+              --set services.backoffice-bff.tag=${{ env.BACKOFFICE_BFF_TAG }}
               
       - name: Print Access Info
         run: |
