@@ -2,3 +2,4 @@
 # We can just override the global domain here explicitly if needed.
 global:
   domain: yas.lethanhcong.site
+  serviceType: ClusterIP

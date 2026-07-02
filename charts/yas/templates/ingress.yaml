@@ -1,5 +1,5 @@
 {{- range $name, $svc := .Values.services }}
-{{- if and $svc.enabled $svc.host }}
+{{- if and $svc.enabled $svc.host (eq ($.Values.global.setHosts | default true) true) }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

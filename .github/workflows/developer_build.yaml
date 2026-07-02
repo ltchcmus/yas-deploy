@@ -1,0 +1,144 @@
+name: Developer Build CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      namespace_name:
+        description: 'Namespace to deploy'
+        required: true
+        default: 'developer_build'
+      backoffice_branch:
+        description: 'Branch for backoffice'
+        default: 'main'
+      backoffice_bff_branch:
+        description: 'Branch for backoffice-bff'
+        default: 'main'
+      cart_branch:
+        description: 'Branch for cart'
+        default: 'main'
+      customer_branch:
+        description: 'Branch for customer'
+        default: 'main'
+      inventory_branch:
+        description: 'Branch for inventory'
+        default: 'main'
+      media_branch:
+        description: 'Branch for media'
+        default: 'main'
+      order_branch:
+        description: 'Branch for order'
+        default: 'main'
+      payment_branch:
+        description: 'Branch for payment'
+        default: 'main'
+      product_branch:
+        description: 'Branch for product'
+        default: 'main'
+      recommendation_branch:
+        description: 'Branch for recommendation'
+        default: 'main'
+      sampledata_branch:
+        description: 'Branch for sampledata'
+        default: 'main'
+      search_branch:
+        description: 'Branch for search'
+        default: 'main'
+      storefront_branch:
+        description: 'Branch for storefront'
+        default: 'main'
+      storefront_bff_branch:
+        description: 'Branch for storefront-bff'
+        default: 'main'
+      swagger_ui_branch:
+        description: 'Branch for swagger-ui'
+        default: 'main'
+      tax_branch:
+        description: 'Branch for tax'
+        default: 'main'
+      webhook_branch:
+        description: 'Branch for webhook'
+        default: 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve Branch to SHA
+        id: resolve
+        run: |
+          get_sha() {
+            local branch=$1
+            if [ "$branch" == "main" ] || [ "$branch" == "latest" ] || [ -z "$branch" ]; then
+              echo "latest"
+            else
+              # Try to get branch SHA, if it fails (e.g. for external images), fallback to the input value
+              SHA=$(curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/ltchcmus/yas/commits/$branch | jq -r .sha)
+              if [ "$SHA" == "null" ] || [ -z "$SHA" ]; then
+                echo "$branch"
+              else
+                echo "$SHA"
+              fi
+            fi
+          }
+          
+          echo "TAX_TAG=$(get_sha ${{ github.event.inputs.tax_branch }})" >> $GITHUB_ENV
+          echo "CART_TAG=$(get_sha ${{ github.event.inputs.cart_branch }})" >> $GITHUB_ENV
+          echo "ORDER_TAG=$(get_sha ${{ github.event.inputs.order_branch }})" >> $GITHUB_ENV
+          echo "CUSTOMER_TAG=$(get_sha ${{ github.event.inputs.customer_branch }})" >> $GITHUB_ENV
+          echo "INVENTORY_TAG=$(get_sha ${{ github.event.inputs.inventory_branch }})" >> $GITHUB_ENV
+          echo "MEDIA_TAG=$(get_sha ${{ github.event.inputs.media_branch }})" >> $GITHUB_ENV
+          echo "PAYMENT_TAG=$(get_sha ${{ github.event.inputs.payment_branch }})" >> $GITHUB_ENV
+          echo "PRODUCT_TAG=$(get_sha ${{ github.event.inputs.product_branch }})" >> $GITHUB_ENV
+          echo "RECOMMENDATION_TAG=$(get_sha ${{ github.event.inputs.recommendation_branch }})" >> $GITHUB_ENV
+          echo "SAMPLEDATA_TAG=$(get_sha ${{ github.event.inputs.sampledata_branch }})" >> $GITHUB_ENV
+          echo "SEARCH_TAG=$(get_sha ${{ github.event.inputs.search_branch }})" >> $GITHUB_ENV
+          echo "STOREFRONT_TAG=$(get_sha ${{ github.event.inputs.storefront_branch }})" >> $GITHUB_ENV
+          echo "STOREFRONT_BFF_TAG=$(get_sha ${{ github.event.inputs.storefront_bff_branch }})" >> $GITHUB_ENV
+          echo "SWAGGER_UI_TAG=$(get_sha ${{ github.event.inputs.swagger_ui_branch }})" >> $GITHUB_ENV
+          echo "WEBHOOK_TAG=$(get_sha ${{ github.event.inputs.webhook_branch }})" >> $GITHUB_ENV
+          echo "BACKOFFICE_TAG=$(get_sha ${{ github.event.inputs.backoffice_branch }})" >> $GITHUB_ENV
+          echo "BACKOFFICE_BFF_TAG=$(get_sha ${{ github.event.inputs.backoffice_bff_branch }})" >> $GITHUB_ENV
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            cd ~/apps/yas-deploy
+            git pull origin main
+            
+            helm upgrade --install developer_build charts/yas \
+              --namespace ${{ github.event.inputs.namespace_name }} --create-namespace \
+              --set global.serviceType=NodePort \
+              --set global.setHosts=false \
+              --set tax.tag=${{ env.TAX_TAG }} \
+              --set cart.tag=${{ env.CART_TAG }} \
+              --set order.tag=${{ env.ORDER_TAG }} \
+              --set customer.tag=${{ env.CUSTOMER_TAG }} \
+              --set inventory.tag=${{ env.INVENTORY_TAG }} \
+              --set media.tag=${{ env.MEDIA_TAG }} \
+              --set payment.tag=${{ env.PAYMENT_TAG }} \
+              --set product.tag=${{ env.PRODUCT_TAG }} \
+              --set recommendation.tag=${{ env.RECOMMENDATION_TAG }} \
+              --set sampledata.tag=${{ env.SAMPLEDATA_TAG }} \
+              --set search.tag=${{ env.SEARCH_TAG }} \
+              --set storefront.tag=${{ env.STOREFRONT_TAG }} \
+              --set storefront-bff.tag=${{ env.STOREFRONT_BFF_TAG }} \
+              --set swagger-ui.tag=${{ env.SWAGGER_UI_TAG }} \
+              --set webhook.tag=${{ env.WEBHOOK_TAG }} \
+              --set backoffice.tag=${{ env.BACKOFFICE_TAG }} \
+              --set backoffice-bff.tag=${{ env.BACKOFFICE_BFF_TAG }}
+              
+      - name: Print Access Info
+        run: |
+          echo "### Deploy successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "System has been deployed successfully with Helm release **developer_build** in namespace **${{ github.event.inputs.namespace_name }}**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Access the application at the following NodePorts:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Storefront UI**: [http://yas.lethanhcong.site:30089](http://yas.lethanhcong.site:30089)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Storefront BFF**: [http://yas.lethanhcong.site:30088](http://yas.lethanhcong.site:30088)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Backoffice UI**: [http://yas.lethanhcong.site:30091](http://yas.lethanhcong.site:30091)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Swagger UI**: [http://yas.lethanhcong.site:30098](http://yas.lethanhcong.site:30098)" >> $GITHUB_STEP_SUMMARY

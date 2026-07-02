@@ -1,0 +1,29 @@
+name: Developer Build Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      namespace_name:
+        description: 'Namespace to destroy'
+        required: true
+        default: 'developer_build'
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Destroy VPS Deployment via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            helm uninstall developer_build --namespace ${{ github.event.inputs.namespace_name }} --ignore-not-found
+            kubectl delete namespace ${{ github.event.inputs.namespace_name }} --ignore-not-found
+
+      - name: Print Destroy Result
+        run: |
+          echo "### Clean!" >> $GITHUB_STEP_SUMMARY
+          echo " Helm release **developer_build** and namespace **${{ github.event.inputs.namespace_name }}** have been cleaned up" >> $GITHUB_STEP_SUMMARY
