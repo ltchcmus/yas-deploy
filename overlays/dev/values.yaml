@@ -3,3 +3,6 @@
 global:
   domain: yas.lethanhcong.site
   serviceType: ClusterIP
+services:
+  storefront:
+    tag: bef7aae2a088d6df7491cac38b91f9b5db831257
