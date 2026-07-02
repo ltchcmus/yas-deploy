@@ -72,7 +72,7 @@ jobs:
               echo "latest"
             else
               # Try to get branch SHA, if it fails (e.g. for external images), fallback to the input value
-              SHA=$(curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/ltchcmus/yas/commits/$branch | jq -r .sha)
+              SHA=$(curl -s -H "Authorization: token ${{ secrets.GH_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/devops-teamk23/new-yas/commits/$branch | jq -r .sha)
               if [ "$SHA" == "null" ] || [ -z "$SHA" ]; then
                 echo "$branch"
               else
@@ -110,8 +110,11 @@ jobs:
             cd ~/apps/yas-deploy
             git pull origin main
             
+            kubectl create namespace ${{ github.event.inputs.namespace_name }} --dry-run=client -o yaml | kubectl apply -f -
+            kubectl label namespace ${{ github.event.inputs.namespace_name }} istio-injection=enabled --overwrite
+            
             helm upgrade --install developer-build charts/yas \
-              --namespace ${{ github.event.inputs.namespace_name }} --create-namespace \
+              --namespace ${{ github.event.inputs.namespace_name }} \
               --set global.serviceType=NodePort \
               --set global.setHosts=false \
               --set tax.tag=${{ env.TAX_TAG }} \
