@@ -21,7 +21,7 @@ spec:
     - from:
         - source:
             # Cho phép nội bộ giao tiếp
-            namespaces: ["dev", "staging", "ingress-nginx", "istio-system", "{{ .Release.Namespace }}"]
+            namespaces: ["dev", "staging", "ingress-nginx", "istio-system", "{{ $.Release.Namespace }}"]
     {{- end }}
     - to:
         - operation:
