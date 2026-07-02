@@ -1,11 +1,50 @@
 global:
   domain: staging.yas.lethanhcong.site
   serviceType: ClusterIP
-
 services:
   storefront-bff:
     host: staging.storefront.yas.lethanhcong.site
+    tag: v.1.0.0
   backoffice-bff:
     host: staging.backoffice.yas.lethanhcong.site
+    tag: v.1.0.0
   swagger-ui:
     host: staging.swagger.yas.lethanhcong.site
+  backoffice:
+    tag: v.1.0.0
+  cart:
+    tag: v.1.0.0
+  charts:
+    tag: v.1.0.0
+  customer:
+    tag: v.1.0.0
+  inventory:
+    tag: v.1.0.0
+  location:
+    tag: v.1.0.0
+  media:
+    tag: v.1.0.0
+  order:
+    tag: v.1.0.0
+  payment:
+    tag: v.1.0.0
+  payment-paypal:
+    tag: v.1.0.0
+  product:
+    tag: v.1.0.0
+  promotion:
+    tag: v.1.0.0
+  rating:
+    tag: v.1.0.0
+  recommendation:
+    tag: v.1.0.0
+  sampledata:
+    tag: v.1.0.0
+  search:
+    tag: v.1.0.0
+  storefront:
+    tag: v.1.0.0
+  tax:
+    tag: v.1.0.0
+  webhook:
+    tag: v.1.0.0
