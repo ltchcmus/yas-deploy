@@ -158,7 +158,7 @@ services:
     enabled: true
     tag: v5.17.14
     containerPort: 8080
-    nodePort: 30092
+    nodePort: 30098
     type: swagger
     image: swaggerapi/swagger-ui
     host: swagger.yas.lethanhcong.site
