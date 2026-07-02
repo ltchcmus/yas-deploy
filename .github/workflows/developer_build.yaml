@@ -141,7 +141,22 @@ jobs:
           echo "Hệ thống đã được cài đặt thành công với Helm release **developer-build** vào namespace **${{ github.event.inputs.namespace_name }}**" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Access the application at the following NodePorts:" >> $GITHUB_STEP_SUMMARY
-          echo "- **Storefront UI**: [http://yas.lethanhcong.site:30089](http://yas.lethanhcong.site:30089)" >> $GITHUB_STEP_SUMMARY
-          echo "- **Storefront BFF**: [http://yas.lethanhcong.site:30088](http://yas.lethanhcong.site:30088)" >> $GITHUB_STEP_SUMMARY
-          echo "- **Backoffice UI**: [http://yas.lethanhcong.site:30091](http://yas.lethanhcong.site:30091)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Storefront (Dùng port này để có API Gateway)**: [http://yas.lethanhcong.site:30088](http://yas.lethanhcong.site:30088)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Backoffice (Dùng port này để có API Gateway)**: [http://yas.lethanhcong.site:30090](http://yas.lethanhcong.site:30090)" >> $GITHUB_STEP_SUMMARY
           echo "- **Swagger UI**: [http://yas.lethanhcong.site:30098](http://yas.lethanhcong.site:30098)" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "Direct access to backend services (For debugging only):" >> $GITHUB_STEP_SUMMARY
+          echo "- **product**: [http://yas.lethanhcong.site:30080](http://yas.lethanhcong.site:30080)" >> $GITHUB_STEP_SUMMARY
+          echo "- **cart**: [http://yas.lethanhcong.site:30081](http://yas.lethanhcong.site:30081)" >> $GITHUB_STEP_SUMMARY
+          echo "- **order**: [http://yas.lethanhcong.site:30082](http://yas.lethanhcong.site:30082)" >> $GITHUB_STEP_SUMMARY
+          echo "- **customer**: [http://yas.lethanhcong.site:30083](http://yas.lethanhcong.site:30083)" >> $GITHUB_STEP_SUMMARY
+          echo "- **inventory**: [http://yas.lethanhcong.site:30084](http://yas.lethanhcong.site:30084)" >> $GITHUB_STEP_SUMMARY
+          echo "- **tax**: [http://yas.lethanhcong.site:30085](http://yas.lethanhcong.site:30085)" >> $GITHUB_STEP_SUMMARY
+          echo "- **media**: [http://yas.lethanhcong.site:30086](http://yas.lethanhcong.site:30086)" >> $GITHUB_STEP_SUMMARY
+          echo "- **search**: [http://yas.lethanhcong.site:30087](http://yas.lethanhcong.site:30087)" >> $GITHUB_STEP_SUMMARY
+          echo "- **storefront** (Direct UI without API Gateway): [http://yas.lethanhcong.site:30089](http://yas.lethanhcong.site:30089)" >> $GITHUB_STEP_SUMMARY
+          echo "- **backoffice** (Direct UI without API Gateway): [http://yas.lethanhcong.site:30091](http://yas.lethanhcong.site:30091)" >> $GITHUB_STEP_SUMMARY
+          echo "- **sampledata**: [http://yas.lethanhcong.site:30093](http://yas.lethanhcong.site:30093)" >> $GITHUB_STEP_SUMMARY
+          echo "- **payment**: [http://yas.lethanhcong.site:30094](http://yas.lethanhcong.site:30094)" >> $GITHUB_STEP_SUMMARY
+          echo "- **recommendation**: [http://yas.lethanhcong.site:30096](http://yas.lethanhcong.site:30096)" >> $GITHUB_STEP_SUMMARY
+          echo "- **webhook**: [http://yas.lethanhcong.site:30097](http://yas.lethanhcong.site:30097)" >> $GITHUB_STEP_SUMMARY
