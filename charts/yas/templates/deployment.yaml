@@ -110,7 +110,7 @@ spec:
           env:
             - name: HOSTNAME
               value: "0.0.0.0"
-            {{- if eq ($.Values.global.setHosts | default true) true }}
+            {{- if ne (toString $.Values.global.setHosts) "false" }}
             - name: API_BASE_PATH
               value: 'http://{{ index $.Values.services (printf "%s-bff" $name) "host" }}/api'
             {{- else }}
