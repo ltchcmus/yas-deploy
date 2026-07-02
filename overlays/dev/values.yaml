@@ -6,3 +6,5 @@ global:
 services:
   storefront:
     tag: 637827f3799fec680e7fcf2ae8f999fc3206d1a6
+  search:
+    tag: 4b326d2ac23d2934cfe697cf552cf7df96c1a868
