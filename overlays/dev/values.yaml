@@ -2,26 +2,3 @@
 # We can just override the global domain here explicitly if needed.
 global:
   domain: yas.lethanhcong.site
-services:
-  product:
-    tag: ebacd51d45f481be48f99f79b440f832b730648d
-  cart:
-    tag: ebacd51d45f481be48f99f79b440f832b730648d
-  order:
-    tag: ebacd51d45f481be48f99f79b440f832b730648d
-  tax:
-    tag: ebacd51d45f481be48f99f79b440f832b730648d
-  customer:
-    tag: ebacd51d45f481be48f99f79b440f832b730648d
-  inventory:
-    tag: ebacd51d45f481be48f99f79b440f832b730648d
-  media:
-    tag: ebacd51d45f481be48f99f79b440f832b730648d
-  search:
-    tag: ebacd51d45f481be48f99f79b440f832b730648d
-  payment:
-    tag: ebacd51d45f481be48f99f79b440f832b730648d
-  recommendation:
-    tag: ebacd51d45f481be48f99f79b440f832b730648d
-  webhook:
-    tag: ebacd51d45f481be48f99f79b440f832b730648d
