@@ -4,24 +4,24 @@ global:
   domain: yas.lethanhcong.site
 services:
   product:
-    tag: 04433ebb1356c96a1fdd4d68b15ba0f1a63b316f
+    tag: ebacd51d45f481be48f99f79b440f832b730648d
   cart:
-    tag: 04433ebb1356c96a1fdd4d68b15ba0f1a63b316f
+    tag: ebacd51d45f481be48f99f79b440f832b730648d
   order:
-    tag: 04433ebb1356c96a1fdd4d68b15ba0f1a63b316f
+    tag: ebacd51d45f481be48f99f79b440f832b730648d
   tax:
-    tag: 04433ebb1356c96a1fdd4d68b15ba0f1a63b316f
+    tag: ebacd51d45f481be48f99f79b440f832b730648d
   customer:
-    tag: 04433ebb1356c96a1fdd4d68b15ba0f1a63b316f
+    tag: ebacd51d45f481be48f99f79b440f832b730648d
   inventory:
-    tag: 04433ebb1356c96a1fdd4d68b15ba0f1a63b316f
+    tag: ebacd51d45f481be48f99f79b440f832b730648d
   media:
-    tag: 04433ebb1356c96a1fdd4d68b15ba0f1a63b316f
+    tag: ebacd51d45f481be48f99f79b440f832b730648d
   search:
-    tag: 04433ebb1356c96a1fdd4d68b15ba0f1a63b316f
+    tag: ebacd51d45f481be48f99f79b440f832b730648d
   payment:
-    tag: 04433ebb1356c96a1fdd4d68b15ba0f1a63b316f
+    tag: ebacd51d45f481be48f99f79b440f832b730648d
   recommendation:
-    tag: 04433ebb1356c96a1fdd4d68b15ba0f1a63b316f
+    tag: ebacd51d45f481be48f99f79b440f832b730648d
   webhook:
-    tag: 04433ebb1356c96a1fdd4d68b15ba0f1a63b316f
+    tag: ebacd51d45f481be48f99f79b440f832b730648d
