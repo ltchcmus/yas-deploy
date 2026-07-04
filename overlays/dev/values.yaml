@@ -5,6 +5,6 @@ global:
   serviceType: ClusterIP
 services:
   storefront:
-    tag: 637827f3799fec680e7fcf2ae8f999fc3206d1a6
+    tag: e1a19f14c6441b036e6a2e1f42ec0c6d63a768ee
   search:
     tag: 4b326d2ac23d2934cfe697cf552cf7df96c1a868
