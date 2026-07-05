@@ -14,7 +14,7 @@ grafana:
   adminUser: admin
   adminPassword: admin
   ingress:
-    ingressClassName: nginx
+    ingressClassName: traefik
     enabled: true
     hosts:
       - *hostname
