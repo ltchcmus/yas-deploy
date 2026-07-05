@@ -37,3 +37,9 @@ grafana:
       uid: loki
       access: proxy
       url: http://loki-gateway:80
+      jsonData:
+        derivedFields:
+          - datasourceUid: tempo
+            matcherRegex: "\[.+?,([a-f0-9]+),.+?\]"
+            name: traceId
+            url: $${__value.raw}
