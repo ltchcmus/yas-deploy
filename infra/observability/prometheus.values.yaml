@@ -40,6 +40,6 @@ grafana:
       jsonData:
         derivedFields:
           - datasourceUid: tempo
-            matcherRegex: "\[.+?,([a-f0-9]+),.+?\]"
+            matcherRegex: '\[.+?,([a-f0-9]+),.+?\]'
             name: traceId
             url: $${__value.raw}
