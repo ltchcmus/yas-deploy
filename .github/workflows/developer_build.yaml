@@ -117,6 +117,13 @@ jobs:
               --namespace ${{ github.event.inputs.namespace_name }} \
               --set global.serviceType=NodePort \
               --set global.setHosts=false \
+              --set global.createSecret=true \
+              --set global.postgresql.password=${{ secrets.POSTGRESQL_PASSWORD }} \
+              --set global.elasticsearch.password=${{ secrets.ELASTICSEARCH_PASSWORD }} \
+              --set global.redis.password=${{ secrets.REDIS_PASSWORD }} \
+              --set global.keycloak.backofficeBffClientSecret=${{ secrets.KEYCLOAK_BACKOFFICE_BFF_CLIENT_SECRET }} \
+              --set global.keycloak.storefrontBffClientSecret=${{ secrets.KEYCLOAK_STOREFRONT_BFF_CLIENT_SECRET }} \
+              --set global.keycloak.customerManagementClientSecret=${{ secrets.KEYCLOAK_CUSTOMER_MANAGEMENT_CLIENT_SECRET }} \
               --set services.tax.tag=${{ env.TAX_TAG }} \
               --set services.cart.tag=${{ env.CART_TAG }} \
               --set services.order.tag=${{ env.ORDER_TAG }} \

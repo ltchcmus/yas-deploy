@@ -56,9 +56,7 @@ spec:
           {{- if eq ($svc.type | default "backend") "backend" }}
           envFrom:
             - secretRef:
-                name: yas-postgresql-credentials-secret
-            - secretRef:
-                name: yas-keycloak-credentials-secret
+                name: yas-credentials-secret
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: "kubernetes"
