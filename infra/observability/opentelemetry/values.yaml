@@ -11,11 +11,13 @@ opentelemetryCollectorConfig:
   exporters:
     debug:
       verbosity: detailed
-    otlphttp:
-      endpoint: http://tempo:4318
+    otlp/tempo:
+      endpoint: tempo.observability.svc.cluster.local:4317
+      tls:
+        insecure: true
   service:
     pipelines:
       traces:
         receivers: [otlp]
         processors: [batch]
-        exporters: [otlphttp]
+        exporters: [otlp/tempo, debug]
