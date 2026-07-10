@@ -15,13 +15,20 @@ data:
     <?xml version="1.0" encoding="UTF-8" ?>
     <Configuration>
         <include resource="org/springframework/boot/logging/logback/defaults.xml" />
-        <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
         <property name="LOG_LEVEL" value="${LOG_LEVEL:-INFO}"/>
+
+        <!-- Custom Appender: in trace_id và span_id vào mỗi dòng log (yêu cầu OTel Java Agent) -->
+        <appender name="CONSOLE_WITH_TRACE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) [%thread] trace_id=%X{trace_id:-} span_id=%X{span_id:-} %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
         <root level="INFO">
-            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="CONSOLE_WITH_TRACE" />
         </root>
         <logger name="com.yas" level="${LOG_LEVEL}" additivity="false">
-            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="CONSOLE_WITH_TRACE" />
         </logger>
     </Configuration>
 ---
