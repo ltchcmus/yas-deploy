@@ -20,3 +20,4 @@ spec:
           matcherRegex: "(?:traceId|trace_id)=(\\w+)"
           name: traceId
           url: ${__value.raw}
+          internalLink: true

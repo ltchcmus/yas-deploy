@@ -5,6 +5,14 @@ metadata:
 spec:
   mode: deployment
   ports:
+    - name: otlp-grpc        # ← OTLP gRPC: Java app gửi trace qua đây
+      port: 4317
+      protocol: TCP
+      targetPort: 4317
+    - name: otlp-http        # ← OTLP HTTP: alternative endpoint
+      port: 4318
+      protocol: TCP
+      targetPort: 4318
     - name: loki
       port: 3500
       protocol: TCP
