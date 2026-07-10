@@ -24,8 +24,9 @@ spec:
         {{- end }}
       {{- end }}
     spec:
-      {{- if eq $name "media" }}
+      {{- if or (eq $name "media") (eq ($svc.type | default "backend") "backend") }}
       initContainers:
+        {{- if eq $name "media" }}
         - name: init-media-images
           image: alpine:latest
           command: ["sh", "-c"]
@@ -39,9 +40,8 @@ spec:
           volumeMounts:
             - mountPath: /images
               name: media-images
-      {{- end }}
-      {{- if eq ($svc.type | default "backend") "backend" }}
-      initContainers:
+        {{- end }}
+        {{- if eq ($svc.type | default "backend") "backend" }}
         - name: otel-agent-init
           image: busybox:1.36
           command:
@@ -53,6 +53,7 @@ spec:
           volumeMounts:
             - mountPath: /otel
               name: otel-agent
+        {{- end }}
       {{- end }}
       containers:
         - name: {{ $name }}
