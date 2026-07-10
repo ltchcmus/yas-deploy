@@ -217,9 +217,6 @@ services:
 # (rendered into ConfigMap, mounted to all backend services)
 # ============================================================
 applicationConfig:
-  logging:
-    level:
-      org.springframework.web: DEBUG
   server:
     shutdown: graceful
     port: 80
