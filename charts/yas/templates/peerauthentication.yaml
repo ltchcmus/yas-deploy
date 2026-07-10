@@ -7,3 +7,24 @@ metadata:
 spec:
   mtls:
     mode: {{ .Values.global.mtls.mode }}
+
+{{- if eq .Values.global.mtls.mode "STRICT" }}
+{{- range $name, $svc := .Values.services }}
+{{- if and $svc.enabled $svc.host (ne (toString $.Values.global.setHosts) "false") }}
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: {{ $name }}-ingress-exception
+  labels:
+    {{- include "yas.labels" $ | nindent 4 }}
+    app: {{ $name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ $name }}
+  mtls:
+    mode: PERMISSIVE
+{{- end }}
+{{- end }}
+{{- end }}
