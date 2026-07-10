@@ -4,4 +4,11 @@ tempo:
     http_listen_port: 3200
   metricsGenerator:
     enabled: true
-    remoteWriteUrl: "http://prometheus-kube-prometheus-prometheus:9090/api/v1/write"
+    config:
+      storage:
+        path: /var/tempo/wal                # ← Bắt buộc: Đường dẫn WAL buffer
+        remote_write:
+          - url: "http://prometheus-kube-prometheus-prometheus:9090/api/v1/write"
+      processor:
+        service_graphs: {}                  # Kích hoạt Service Graph (sơ đồ phụ thuộc)
+        span_metrics: {}                    # Kích hoạt Span Metrics (RED metrics)
