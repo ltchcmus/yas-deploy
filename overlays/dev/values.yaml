@@ -5,6 +5,44 @@ global:
   serviceType: ClusterIP
 services:
   storefront:
-    tag: e1a19f14c6441b036e6a2e1f42ec0c6d63a768ee
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
   search:
-    tag: 4b326d2ac23d2934cfe697cf552cf7df96c1a868
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  backoffice-bff:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  backoffice:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  cart:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  charts:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  customer:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  inventory:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  location:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  media:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  order:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  payment:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  payment-paypal:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  product:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  promotion:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  rating:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  recommendation:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  sampledata:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  storefront-bff:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  tax:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+  webhook:
+    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
