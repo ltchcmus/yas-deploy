@@ -18,28 +18,3 @@ grafana:
     enabled: true
     hosts:
       - *hostname
-  additionalDataSources:
-    - name: Tempo
-      type: tempo
-      uid: tempo
-      access: proxy
-      url: http://tempo:3200
-      jsonData:
-        httpMethod: GET
-        tracesToLogsV2:
-          datasourceUid: loki
-        serviceMap:
-          datasourceUid: prometheus
-        nodeGraph:
-          enabled: true
-    - name: Loki
-      type: loki
-      uid: loki
-      access: proxy
-      url: http://loki-gateway:80
-      jsonData:
-        derivedFields:
-          - datasourceUid: tempo
-            matcherRegex: '\[.+?,([a-f0-9]+),.+?\]'
-            name: traceId
-            url: $${__value.raw}
