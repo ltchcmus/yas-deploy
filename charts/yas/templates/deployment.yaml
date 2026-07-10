@@ -90,6 +90,8 @@ spec:
               value: "-javaagent:/otel/otel-javaagent.jar"
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: "http://opentelemetry-collector.observability.svc.cluster.local:4317"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "grpc"
             - name: OTEL_SERVICE_NAME
               value: {{ $name | quote }}
             - name: OTEL_LOGS_EXPORTER
