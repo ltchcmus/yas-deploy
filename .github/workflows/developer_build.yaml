@@ -118,6 +118,7 @@ jobs:
               --set global.serviceType=NodePort \
               --set global.setHosts=false \
               --set global.createSecret=true \
+              --set global.mtls.mode=PERMISSIVE \
               --set global.postgresql.password=${{ secrets.POSTGRESQL_PASSWORD }} \
               --set global.elasticsearch.password=${{ secrets.ELASTICSEARCH_PASSWORD }} \
               --set global.redis.password=${{ secrets.REDIS_PASSWORD }} \

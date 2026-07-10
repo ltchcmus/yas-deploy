@@ -6,6 +6,8 @@
 
 global:
   createSecret: false
+  mtls:
+    mode: STRICT
   registry: docker.io/coldcong
   domain: yas.lethanhcong.site
   setHosts: true
