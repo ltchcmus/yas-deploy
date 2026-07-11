@@ -4,47 +4,47 @@ global:
 services:
   storefront-bff:
     host: staging.storefront.yas.lethanhcong.site
-    tag: v1.0.1
+    tag: v.1.0.2
   backoffice-bff:
     host: staging.backoffice.yas.lethanhcong.site
-    tag: v1.0.1
+    tag: v.1.0.2
   swagger-ui:
     host: staging.swagger.yas.lethanhcong.site
   backoffice:
-    tag: v1.0.1
+    tag: v.1.0.2
   cart:
-    tag: v1.0.1
+    tag: v.1.0.2
   charts:
-    tag: v1.0.1
+    tag: v.1.0.2
   customer:
-    tag: v1.0.1
+    tag: v.1.0.2
   inventory:
-    tag: v1.0.1
+    tag: v.1.0.2
   location:
-    tag: v1.0.1
+    tag: v.1.0.2
   media:
-    tag: v1.0.1
+    tag: v.1.0.2
   order:
-    tag: v1.0.1
+    tag: v.1.0.2
   payment:
-    tag: v1.0.1
+    tag: v.1.0.2
   payment-paypal:
-    tag: v1.0.1
+    tag: v.1.0.2
   product:
-    tag: v1.0.1
+    tag: v.1.0.2
   promotion:
-    tag: v1.0.1
+    tag: v.1.0.2
   rating:
-    tag: v1.0.1
+    tag: v.1.0.2
   recommendation:
-    tag: v1.0.1
+    tag: v.1.0.2
   sampledata:
-    tag: v1.0.1
+    tag: v.1.0.2
   search:
-    tag: v1.0.1
+    tag: v.1.0.2
   storefront:
-    tag: v1.0.1
+    tag: v.1.0.2
   tax:
-    tag: v1.0.1
+    tag: v.1.0.2
   webhook:
-    tag: v1.0.1
+    tag: v.1.0.2
