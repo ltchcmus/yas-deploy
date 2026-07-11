@@ -5,7 +5,7 @@ global:
   serviceType: ClusterIP
 services:
   storefront:
-    tag: a05301a414499b473fc94d85f035db0e30be37af
+    tag: ff07703e72e31d1bea8afbdcbd2a563a4cf14b48
   search:
     tag: a05301a414499b473fc94d85f035db0e30be37af
   backoffice-bff:
