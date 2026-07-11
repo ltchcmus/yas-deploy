@@ -5,44 +5,44 @@ global:
   serviceType: ClusterIP
 services:
   storefront:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   search:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   backoffice-bff:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   backoffice:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   cart:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   charts:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   customer:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   inventory:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   location:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   media:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   order:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   payment:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   payment-paypal:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   product:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   promotion:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   rating:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   recommendation:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   sampledata:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   storefront-bff:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   tax:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
   webhook:
-    tag: 559fc76b9181e186b0f5e5d97a7aa4247c38f493
+    tag: a05301a414499b473fc94d85f035db0e30be37af
